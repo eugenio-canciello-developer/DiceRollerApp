@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import net.eugcan.diceroller.databinding.FragmentFirstBinding
@@ -18,9 +19,6 @@ import kotlin.random.Random
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-
-    lateinit var roll_text: TextView
-    lateinit var roll_button: Button
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -41,15 +39,11 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.textViewRoll.setText(R.string.string_lets_roll)
         binding.buttonRoll.setOnClickListener {
             roll()
         }
-
-        /*binding.textViewNumber.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-           }
-         */
 
     }
 
@@ -59,12 +53,8 @@ class FirstFragment : Fragment() {
         println("Random Int: " + random_int)
         val random_int_string = getStringFromRes(random_int)
         binding.textViewRoll.setText(random_int_string)
-        /*
-        val rndm_int = getRandomInt()
-        println("Random Int: " + rndm_int)
-        binding.textViewRoll.setText(rndm_int)
-
-         */
+        //image
+        binding.diceImage.setImageResource(getImageFromInt(random_int))
     }
 
     private fun getRandomInt(): Int {
@@ -88,6 +78,22 @@ class FirstFragment : Fragment() {
         return result
     }
 
+    private fun getImageFromInt(image_num: Int) : Int {
+        var result: Int = image_num
+
+        when (result) {
+            1 -> result = R.drawable.dice_1
+            2 -> result = R.drawable.dice_2
+            3 -> result = R.drawable.dice_3
+            4 -> result = R.drawable.dice_4
+            5 -> result = R.drawable.dice_5
+            6 -> result = R.drawable.dice_6
+            else -> {
+                result = R.drawable.dice_1
+            }
+        }
+        return result
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
